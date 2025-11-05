@@ -107,9 +107,8 @@ const App: React.FC = () => {
     <div className="bg-gray-50 dark:bg-dark-bg text-gray-900 dark:text-gray-100 min-h-screen font-sans">
       <Navbar theme={theme} toggleTheme={toggleTheme} />
       <div className="container mx-auto px-4 py-8">
-        <div className="lg:flex lg:gap-8">
-          <Sidebar data={RESOURCES_DATA} isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-          <main className="lg:flex-1 lg:w-0 min-w-0">
+        <Sidebar data={RESOURCES_DATA} isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+        <main className="min-w-0">
             <Search 
                 allTags={allTags}
                 selectedTags={selectedTags}
@@ -125,11 +124,10 @@ const App: React.FC = () => {
                 onTagClick={handleTagClick}
               />
             ))}
-          </main>
-        </div>
+        </main>
       </div>
       <Footer />
-      <FloatingTocButton toggleSidebar={toggleSidebar} />
+      <FloatingTocButton toggleSidebar={toggleSidebar} isOpen={isSidebarOpen} />
     </div>
   );
 };

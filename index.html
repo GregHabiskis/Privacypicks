@@ -30,16 +30,52 @@
       html {
         scroll-behavior: smooth;
       }
-      @keyframes vibrate {
-        0% { transform: translate(0, -50%); }
-        20% { transform: translate(-2px, -50%) rotate(-2deg); }
-        40% { transform: translate(2px, -50%) rotate(2deg); }
-        60% { transform: translate(-2px, -50%) rotate(2deg); }
-        80% { transform: translate(2px, -50%) rotate(-2deg); }
-        100% { transform: translate(0, -50%); }
+      @keyframes pulse-glow {
+        0%, 100% {
+          transform: translateY(-50%) scale(1);
+          box-shadow: 0 0 0 0 rgba(86, 119, 231, 0.7);
+        }
+        8% {
+          transform: translateY(-50%) scale(1.05);
+          box-shadow: 0 0 10px 5px rgba(86, 119, 231, 0.4);
+        }
+        16% {
+          transform: translateY(-50%) scale(1);
+          box-shadow: 0 0 0 0 rgba(86, 119, 231, 0.7);
+        }
       }
-      .vibrate {
-        animation: vibrate 0.3s linear;
+      .pulse-animation {
+        animation: pulse-glow 6s infinite ease-in-out;
+      }
+      /* Hide scrollbar for Chrome, Safari and Opera */
+      .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      /* Hide scrollbar for IE, Edge and Firefox */
+      .hide-scrollbar {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+      }
+      /* Scrollbar visible on hover */
+      .scrollbar-on-hover {
+        scrollbar-width: thin;
+        scrollbar-color: transparent transparent;
+      }
+      .scrollbar-on-hover:hover {
+        scrollbar-color: #6B7280 transparent; /* gray-500 */
+      }
+      .scrollbar-on-hover::-webkit-scrollbar {
+        height: 6px;
+      }
+      .scrollbar-on-hover::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .scrollbar-on-hover::-webkit-scrollbar-thumb {
+        background-color: transparent;
+        border-radius: 3px;
+      }
+      .scrollbar-on-hover:hover::-webkit-scrollbar-thumb {
+        background-color: #6B7280; /* gray-500 */
       }
     </style>
   <script type="importmap">

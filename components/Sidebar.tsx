@@ -20,20 +20,20 @@ const Sidebar: React.FC<SidebarProps> = ({ data, isOpen, toggleSidebar }) => {
 
   return (
     <>
-      {/* Mobile Sidebar - Off-canvas */}
+      {/* Sidebar - Off-canvas for all screen sizes */}
       <div
-        className={`fixed inset-0 z-30 bg-black/50 transition-opacity lg:hidden ${
+        className={`fixed inset-0 z-30 bg-black/50 transition-opacity ${
           isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
         onClick={toggleSidebar}
         aria-hidden="true"
       />
       <aside
-        className={`fixed top-0 left-0 z-40 h-full w-64 bg-white dark:bg-dark-card transform transition-transform lg:hidden ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
+        className={`fixed top-16 right-0 bottom-0 z-40 w-72 max-w-[80vw] bg-white dark:bg-dark-card transform transition-transform duration-300 ease-in-out rounded-tl-2xl rounded-bl-2xl shadow-2xl ${
+          isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
-        <div className="p-4 h-full overflow-y-auto">
+        <div className="p-6 h-full overflow-y-auto hide-scrollbar">
           <div className="flex justify-between items-center mb-4">
             <h2 className="font-bold text-lg">Menu</h2>
             <button onClick={toggleSidebar} className="p-1" aria-label="Close menu">
@@ -41,14 +41,6 @@ const Sidebar: React.FC<SidebarProps> = ({ data, isOpen, toggleSidebar }) => {
             </button>
           </div>
           <TableOfContents data={data} onLinkClick={handleLinkClick} />
-        </div>
-      </aside>
-
-      {/* Desktop Sidebar - Static */}
-      <aside className="hidden lg:block w-64 flex-shrink-0">
-        <div className="sticky top-20 h-[calc(100vh-5rem)] overflow-y-auto pr-4">
-          <h2 className="text-lg font-bold mb-4">Table of Contents</h2>
-          <TableOfContents data={data} />
         </div>
       </aside>
     </>

@@ -26,7 +26,6 @@ const customTagOrder = [
     'Web Extension',
 ];
 
-
 const Search: React.FC<SearchProps> = ({ allTags, selectedTags, onTagClick, searchTerm, onSearchChange }) => {
 
   const sortedTags = useMemo(() => {
@@ -48,16 +47,8 @@ const Search: React.FC<SearchProps> = ({ allTags, selectedTags, onTagClick, sear
   }, [allTags]);
 
   return (
-    <section id="search" className="mb-12 bg-white dark:bg-dark-card p-6 rounded-[20px] shadow-lg scroll-mt-20">
-      <div className="flex items-center gap-4 mb-6">
-        <Icon name="Search" className="w-8 h-8 text-primary" />
-        <h2 className="text-2xl font-bold">Search & Filter</h2>
-      </div>
-      <p className="text-gray-600 dark:text-gray-400 mb-6">
-        Filter by tags or use the search bar to find specific resources.
-      </p>
-
-      <div className="mb-6">
+    <section id="search" className="sticky top-16 z-30 mb-12 bg-white dark:bg-dark-card p-5 rounded-[20px] shadow-lg scroll-mt-20">
+      <div className="mb-5">
           <div className="relative">
             <input
               type="text"
@@ -73,15 +64,14 @@ const Search: React.FC<SearchProps> = ({ allTags, selectedTags, onTagClick, sear
       </div>
 
       <div>
-          <h3 className="font-semibold mb-3 text-gray-800 dark:text-gray-200">Filter by Tags:</h3>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-nowrap gap-2 overflow-x-auto scrollbar-on-hover">
               {sortedTags.map(tag => {
                   const isSelected = selectedTags.includes(tag);
                   return (
                       <button
                           key={tag}
                           onClick={() => onTagClick(tag)}
-                          className={`text-xs px-3 py-1 rounded-[20px] border transition-colors ${
+                          className={`flex-shrink-0 text-xs px-3 py-1 rounded-[20px] border transition-colors ${
                               isSelected
                                   ? 'bg-primary text-white border-primary'
                                   : 'bg-transparent text-gray-600 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700'

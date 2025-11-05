@@ -3,9 +3,16 @@ import { type Icon as FeatherIcon } from 'react-feather';
 // Dynamically create a union type of all feather icon names
 export type IconName = keyof typeof import('react-feather');
 
+export type SourceType = 'website' | 'github' | 'playstore' | 'fdroid' | 'chrome' | 'firefox' | 'appstore';
+
+export interface SourceLink {
+  type: SourceType;
+  url: string;
+}
+
 export interface ResourceLink {
   name: string;
-  url: string;
+  sources: SourceLink[];
   imgId: number;
   description: string;
   tags: string[];

@@ -1,32 +1,18 @@
-// FIX: Implemented the FloatingTocButton component for mobile navigation.
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Icon } from './icons';
 
 interface FloatingTocButtonProps {
   toggleSidebar: () => void;
+  isOpen: boolean;
 }
 
-const FloatingTocButton: React.FC<FloatingTocButtonProps> = ({ toggleSidebar }) => {
-  const [isVibrating, setIsVibrating] = useState(false);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIsVibrating(true);
-      setTimeout(() => {
-        setIsVibrating(false);
-      }, 300); // Duration of the vibration animation
-    }, 5000); // Vibrate every 5 seconds
-
-    return () => clearInterval(interval); // Cleanup on component unmount
-  }, []);
-
+const FloatingTocButton: React.FC<FloatingTocButtonProps> = ({ toggleSidebar, isOpen }) => {
   return (
     <button
       onClick={toggleSidebar}
-      className={`lg:hidden fixed top-1/2 right-4 z-20 p-3 bg-primary text-white rounded-[15px] shadow-lg hover:brightness-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary dark:focus:ring-offset-gray-900 transform transition-transform ${
-        isVibrating ? 'vibrate' : '-translate-y-1/2'
-      }`}
-      aria-label="Open table of contents"
+      className="fixed top-1/2 right-0 z-20 transform -translate-y-1/2 w-14 h-14 flex items-center justify-center bg-primary text-white rounded-tl-[20px] rounded-bl-[20px] shadow-lg hover:brightness-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary dark:focus:ring-offset-dark-bg transition-all duration-300 ease-in-out pulse-animation"
+      aria-label={isOpen ? 'Close table of contents' : 'Open table of contents'}
+      aria-expanded={isOpen}
     >
       <Icon name="Menu" size={24} />
     </button>
