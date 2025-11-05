@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { Icon } from './icons';
 import { type ResourceCategory, type SourceType } from '../types';
 
@@ -13,6 +13,10 @@ const SourceIcon: React.FC<{ type: SourceType }> = ({ type }) => {
     switch (type) {
         case 'github':
             return <Icon name="GitHub" size={20} className={commonClasses} />;
+        case 'gitlab':
+            return <Icon name="Gitlab" size={20} className={commonClasses} />;
+        case 'youtube':
+            return <Icon name="Youtube" size={20} className={commonClasses} />;
         case 'playstore':
             return <Icon name="Play" size={20} className={commonClasses} />;
         case 'appstore':
@@ -61,11 +65,12 @@ const ResourceSection: React.FC<ResourceSectionProps> = ({ category, selectedTag
             {sub.links.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {sub.links.map((link) => {
-                    const websiteUrl = link.sources.find(s => s.type === 'website')?.url || '#';
+                    const websiteUrl = link.sources.find(s => s.type === 'website')?.url || link.sources[0]?.url || '#';
                     
-                    const sourceOrder: SourceType[] = ['playstore', 'appstore', 'fdroid', 'github', 'chrome', 'firefox'];
-                    const sortedSourceLinks = useMemo(() => link.sources
-                        .filter(s => s.type !== 'website')
+                    const sourceOrder: SourceType[] = ['playstore', 'appstore', 'fdroid', 'github', 'gitlab', 'youtube', 'chrome', 'firefox'];
+                    
+                    const sortedSourceLinks = link.sources
+                        .filter(s => s.type !== 'website' && s.url !== websiteUrl)
                         .sort((a, b) => {
                             const indexA = sourceOrder.indexOf(a.type);
                             const indexB = sourceOrder.indexOf(b.type);
@@ -73,7 +78,7 @@ const ResourceSection: React.FC<ResourceSectionProps> = ({ category, selectedTag
                             if (indexA === -1) return 1;
                             if (indexB === -1) return -1;
                             return indexA - indexB;
-                        }), [link.sources]);
+                        });
 
                     return (
                         <div key={link.name} className="bg-white dark:bg-dark-card p-6 rounded-[20px] shadow-lg flex flex-col h-full hover:shadow-xl transition-shadow duration-300">
